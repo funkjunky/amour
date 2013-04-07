@@ -1,0 +1,20 @@
+TODO:
+
+**database handler** (USE PDO)
+ - Write a system to take in a table and an array of columns and output data
+ 	- write the amour class
+	- add a function for selecting data
+ - add inserting to the class
+ - add a filtering system [use it in the select function]. Look at other systems, mainly Kohana ORM for how they do it.
+ - add an update function that uses the new filtering system
+
+ **ORM System**
+ - write a class to inherit from that allows the user to get data through magic __gets and and automatically connects the database when first needed.
+ 	- write the class "Model" and the functions necessary
+		- functions needed: __get, __constructor
+			- __constructor
+				-make sure we have a connection to the db already setup
+			- __get
+				-do the select on the table, if we haven't already done so and cached it. (this will involve a lot... I want everything to work as expected)
+
+... write more ...
