@@ -1,0 +1,5 @@
+Problems to consider and solutions to those problems
+---
+When we allow selecting columns and things vulnerable to injection attacks, add a column check to the AloreDB class. Allow caching of the column check:
+"<table>.<column>" => "<column>", then grab the column from the cache.
+Remember to not use the value given to use, but a value from the col query or cache.

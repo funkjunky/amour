@@ -11,6 +11,14 @@ Eventually this should be replaced with a test suite, then it should be brought 
 <?php
 	include "amourdb.php";
 	$db = AmourDB::instance();
+	print "Before:\n";
+	var_dump($db->select("article"));
+	print "After:\n";
+	$id = $db->insert("article", array(
+		"title" => "a THIRD article",
+		"body" => "the third body of text",
+		"added" => gmdate("Y-m-d H:i:s"),
+	));
 	var_dump($db->select("article"));
 ?>
 </pre>

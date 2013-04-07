@@ -30,9 +30,18 @@ class AmourDB
 	{
 		$sql = "SELECT ".implode(",", $columns)." FROM $table";
 		$statement = $this->dbh->query($sql);
-		var_dump($this->dbh->errorInfo());
 
 		return $statement->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function insert($table, $values)
+	{
+		$sql = "INSERT INTO $table SET " . self::binding_string($values);
+
+		$statement = $this->dbh->prepare($sql);
+
+		$statement->execute(self::binding_array($values));
+		var_dump($this->dbh->errorInfo());
 	}
 
 	//~~STATIC~~//
@@ -52,7 +61,27 @@ class AmourDB
 		$pass = $settings['pass']; unset($settings['pass']);
 
 		$connection_string = $db . ":" . implode_kvp($settings, ";", "=");
-		var_dump($connection_string);
+
 		return new PDO($connection_string, $user, $pass);
+	}
+
+	private static function binding_string($params)
+	{
+		$keys = array_keys($params);
+		$ret = ""; $i = 0;
+		foreach($params as $k => $v)
+			$ret .= "$k = :$k" . ((++$i < count($params)) ? ", " : "");
+
+		return $ret;
+	}
+
+	private static function binding_array($params)
+	{
+		$colonized_keys = array_keys($params);
+		array_walk($colonized_keys, function(&$item, $k) {
+			$item = ":" . $item;
+		});
+
+		return array_combine($colonized_keys, array_values($params));
 	}
 }
