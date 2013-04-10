@@ -1,18 +1,23 @@
 TODO:
 
-**database handler** (USE PDO)
- - add a filtering system [use it in the select function]. Look at other systems, mainly Kohana ORM for how they do it.
- - add an update function that uses the new filtering system
- - at some point add Error handling. Properly. Use whatever PDO has
- 	- make a choice of whether to use exceptions or not.
-
  **ORM System**
- - write a class to inherit from that allows the user to get data through magic __gets and and automatically connects the database when first needed.
- 	- write the class "Model" and the functions necessary
-		- functions needed: __get, __constructor
-			- __constructor
-				-make sure we have a connection to the db already setup
-			- __get
-				-do the select on the table, if we haven't already done so and cached it. (this will involve a lot... I want everything to work as expected)
+- write the class "Model" and the functions necessary
+	- __constructor
+		- make sure we have a connection to the db already setup
+		- if a value was passed, then use that as the id.
+	- __get
+		- do the select on the table, if we haven't already done so and cached it.
+			- do a select on all data.
+	- __set
+		- simply set the variable
+	- save
+		- does an update on the table. If the id isn't set, then we insert.
+	- delete
+		- does a delete, only if an id is set, otherwise, just clear the vairables
+	- static find_all(arrar(array())) <filters>
+		- returns an array of model objects.
+	- write a test model with my testblog and ensure everything works.
+		- write the test model as a blank extended array
+		- use our test page to test all the functionality
 
-... write more ...
+-Work on creating my Model View system that I will use for my own website, remember using pure and keeping things as streamlined as possible. Also admin should be a simple plugin kind of thing for the orm.

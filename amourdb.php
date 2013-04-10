@@ -26,11 +26,20 @@ class AmourDB
 		$this->dbh = self::buildPDO($settings);
 	}
 
-	public function select($table, $columns = array("*"))
+	public function select($table, $columns = array("*"), $filters = null)
 	{
 		$sql = "SELECT ".implode(",", $columns)." FROM $table";
-		$statement = $this->dbh->query($sql);
 
+		//add any filters that exist
+		if(!is_array($filters))
+			$statement = $this->dbh->query($sql);
+		else
+		{
+			$statement = $this->get_filtered_statement($sql, $filters);
+			$statement->execute();
+		}
+
+		//return rows
 		return $statement->fetchAll(PDO::FETCH_ASSOC);
 	}
 
@@ -41,7 +50,55 @@ class AmourDB
 		$statement = $this->dbh->prepare($sql);
 
 		$statement->execute(self::binding_array($values));
-		var_dump($this->dbh->errorInfo());
+	}
+
+	/**
+	 * @param array $filters an array of arrays
+	 */
+	public function update($table, $values, $filters)
+	{
+		$sql = "UPDATE $table SET " . self::binding_string($values);
+
+		//add any filters
+		if(count($filters) > 0)
+			$statement = $this->get_filtered_statement($sql, $filters);
+
+		//bind the set variables.
+		foreach(self::binding_array($values) as $k => $v)
+			$statement->bindValue($k, $v);
+
+		//execute the update while applying additional bindings.
+		$statement->execute();
+	}
+
+	/**
+	 * @param array $filters an array of arrays
+	 */
+	public function delete($table, $filters)
+	{
+		$sql = "DELETE FROM $table";
+
+		//add any filters
+		if(count($filters) > 0)
+			$statement = $this->get_filtered_statement($sql, $filters);
+
+		//execute the update while applying additional bindings.
+		$statement->execute();
+	}
+
+	private function get_filtered_statement($sql, $filters)
+	{
+		//build the where clause
+		$sql .= " WHERE ";
+		foreach($filters as $filter)
+			$sql .= $filter[0] . " " . $filter[1] . " :" . $filter[0] . " ";
+
+		//prepare the sql with parameter binding
+		$statement = $this->dbh->prepare($sql);
+		foreach($filters as $filter)
+			$statement->bindValue(":".$filter[0], $filter[2]);
+
+		return $statement;
 	}
 
 	//~~STATIC~~//
@@ -62,7 +119,7 @@ class AmourDB
 
 		$connection_string = $db . ":" . implode_kvp($settings, ";", "=");
 
-		return new PDO($connection_string, $user, $pass);
+		return new PDO($connection_string, $user, $pass, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 	}
 
 	private static function binding_string($params)

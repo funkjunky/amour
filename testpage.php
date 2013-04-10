@@ -14,12 +14,22 @@ Eventually this should be replaced with a test suite, then it should be brought 
 	print "Before:\n";
 	var_dump($db->select("article"));
 	print "After:\n";
-	$id = $db->insert("article", array(
+	try{
+	$db->insert("article", array(
 		"title" => "a THIRD article",
 		"body" => "the third body of text",
 		"added" => gmdate("Y-m-d H:i:s"),
 	));
-	var_dump($db->select("article"));
+	} catch(Exception $e) {
+		print "Error: " . $e->getMessage();
+	}
+	var_dump($db->select("article", array("body"), array(array("title", "LIKE", "%article"))));
+	$db->update("article", array(
+		"body" => "new body using update! VERY UPDATED!",
+	), array(array("title", "LIKE", "%THIRD%")));
+	$db->delete("article", array(array("title", "LIKE", "%NEW%")));
+	print "VERY AFTER:\n";
+	var_dump($db->select("article", array("body"), array(array("title", "LIKE", "%article"))));
 ?>
 </pre>
 </body>
