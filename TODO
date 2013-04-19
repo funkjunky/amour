@@ -2,9 +2,6 @@ TODO:
 
  **ORM System**
 - write the class "Model" and the functions necessary
-	- __constructor
-		- make sure we have a connection to the db already setup
-		- if a value was passed, then use that as the id.
 	- __get
 		- do the select on the table, if we haven't already done so and cached it.
 			- do a select on all data.

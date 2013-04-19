@@ -10,6 +10,7 @@ Eventually this should be replaced with a test suite, then it should be brought 
 <pre>
 <?php
 	include "amourdb.php";
+	include "model/article.php";
 	$db = AmourDB::instance();
 	print "Before:\n";
 	var_dump($db->select("article"));
