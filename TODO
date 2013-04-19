@@ -1,18 +1,8 @@
 TODO:
+needs testing: dbamour->replace, model->everything
 
  **ORM System**
 - write the class "Model" and the functions necessary
-	- __get
-		- do the select on the table, if we haven't already done so and cached it.
-			- do a select on all data.
-	- __set
-		- simply set the variable
-	- save
-		- does an update on the table. If the id isn't set, then we insert.
-	- delete
-		- does a delete, only if an id is set, otherwise, just clear the vairables
-	- static find_all(arrar(array())) <filters>
-		- returns an array of model objects.
 	- write a test model with my testblog and ensure everything works.
 		- write the test model as a blank extended array
 		- use our test page to test all the functionality
