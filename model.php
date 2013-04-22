@@ -60,9 +60,7 @@ class Model implements serializable
 	//we just use replace, because it's a nice function...
 	public function save()
 	{
-		$this->dbh->replace($this->table_name, $this->values, array(
-			array($this->id_key, '=', $this->id),
-		));
+		$this->dbh->replace($this->table_name, $this->values);
 	}
 
 	//remove the item from the db and clears the values.

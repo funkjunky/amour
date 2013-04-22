@@ -9,14 +9,13 @@ Eventually this should be replaced with a test suite, then it should be brought 
 <hr />
 <pre>
 <?php
-	include "amourdb.php";
-	include "model/article.php";
+	require_once "autoloader.php";
 	$db = AmourDB::instance();
 	print "Before:\n";
 	var_dump($db->select("article"));
 	print "After:\n";
 	try{
-	$db->insert("article", array(
+	$db->replace("article", array(
 		"title" => "a THIRD article",
 		"body" => "the third body of text",
 		"added" => gmdate("Y-m-d H:i:s"),

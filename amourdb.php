@@ -52,6 +52,15 @@ class AmourDB
 		$statement->execute(self::binding_array($values));
 	}
 
+	public function replace($table, $values)
+	{
+		$sql = "REPLACE INTO $table SET " . self::binding_string($values);
+
+		$statement = $this->dbh->prepare($sql);
+
+		$statement->execute(self::binding_array($values));
+	}
+
 	/**
 	 * @param array $filters an array of arrays
 	 */
