@@ -6,7 +6,7 @@
  * the primary key is id by default, but it is encouraged to name your own key
  * set it using id_key.
  */
-class Model implements serializable
+class Model
 {
 	public $dbh;
 	public $values;
@@ -16,7 +16,7 @@ class Model implements serializable
 	protected $table_name;
 	protected $id_key;
 
-	public function __constructor($id=null)
+	public function __construct($id = null)
 	{
 		if(!isset($this->table_name))
 			$this->table_name = strtolower(substr(get_class($this), 6));
@@ -49,18 +49,22 @@ class Model implements serializable
 
 	public function __set($key, $value)
 	{
-		$this->values[$key];
+		if($key == $this->id_key)
+			$this->id = $value;
+
+		$this->values[$key] = $value;
 	}
 
 	public function set($values)
 	{
-		$this->values = array_merge($values, $this->values);
+		$this->values = array_merge($this->values, $values);
 	}
 
 	//we just use replace, because it's a nice function...
 	public function save()
 	{
-		$this->dbh->replace($this->table_name, $this->values);
+		$this->id = $this->values[$this->id_key]
+			= $this->dbh->replace($this->table_name, $this->values);
 	}
 
 	//remove the item from the db and clears the values.
@@ -74,9 +78,15 @@ class Model implements serializable
 		$this->values = array();
 	}
 
-	public static function instance($id = null)
+	public static function Instance($id = null)
 	{
 		return new self($id);
+	}
+
+	public static function Factory($model_name, $id = null)
+	{
+		$class = "Model_" . ucfirst($model_name);
+		return new $class($id);
 	}
 
 	//we always get the id, because the model needs it.

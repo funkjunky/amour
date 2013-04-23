@@ -1,10 +1,4 @@
 TODO:
--finish making test environment
-	- print out the values of the assertion as a relation of what failed.
-	- print out msg
-		-add 4 tabs
-
--test all model stuff using test page.
 
  **ORM System**
 - write the class "Model" and the functions necessary

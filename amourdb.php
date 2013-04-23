@@ -59,6 +59,8 @@ class AmourDB
 		$statement = $this->dbh->prepare($sql);
 
 		$statement->execute(self::binding_array($values));
+
+		return $this->dbh->lastInsertId();
 	}
 
 	/**

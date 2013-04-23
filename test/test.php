@@ -49,13 +49,14 @@ class Test
 	 * assertion
 	 *
 	 * @param array $messages [0] failure message, [1] success message
+	 * @deprecated I'm not going to bother testing this right now.
 	 */
 	public function msg($messages)
 	{
 		if($this->succeeded)
-			$this->median->output($messages[1]);
+			$this->median->output("\t\t\t\t" . $messages[1]);
 		else
-			$this->median->output($messages[0]);
+			$this->median->output("\t\t\t\t" . $messages[0]);
 	}
 
 	/**
@@ -143,6 +144,7 @@ class Test
 			array("assertion" => array(
 				"succeeded" => false,
 				"type" => $this->assertion,
+				"values" => array($a, $b),
 			),),
 			$this->get_trace_info()
 		);
@@ -169,6 +171,7 @@ class Test
 			array("assertion" => array(
 				"succeeded" => true,
 				"type" => $this->assertion,
+				"values" => array($a, $b),
 			),),
 			$this->get_trace_info()
 		);

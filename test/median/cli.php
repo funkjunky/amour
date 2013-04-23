@@ -18,11 +18,12 @@ class Median_Cli extends Median
 	{
 		$message = "\t\t\t";
 		if($test_trace['assertion']['succeeded'])
-			$message .= $test_trace['assertion']['type'] . " assertion succeeded.";
+			$message .= "SUCCESS. " . $test_trace['assertion']['type'] . " assertion.";
 		else
 			$message .= "FAILURE! " . $test_trace['assertion']['type'] . " assertion. "
 				. $test_trace['class'] . "->" . $test_trace['function'] . "()"
-				. " line #" . $test_trace['line'];
+				. " line #" . $test_trace['line'] 
+				. " { " . implode(" [".$test_trace['assertion']['type']."] ", $test_trace['assertion']['values']) . " => FALSE }";
 
 		$this->output($message);
 	}

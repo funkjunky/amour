@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `article` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `article_id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `body` text NOT NULL,
   `added` datetime NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE `article` (
 -- Dumping data for table `article`
 --
 
-INSERT INTO `article` (`id`, `title`, `body`, `added`, `modified`) VALUES
+INSERT INTO `article` (`article_id`, `title`, `body`, `added`, `modified`) VALUES
 (1, 'first', 'This is the first article!!!!!!!11!', '2013-04-06 00:00:00', '2013-04-07 02:33:01'),
 (5, 'a THIRD article', 'new body using update! VERY UPDATED!', '2013-04-07 03:44:20', '2013-04-07 03:44:20');
 
