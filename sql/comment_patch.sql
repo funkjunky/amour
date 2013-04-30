@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS comment (
+	comment_id INT AUTO_INCREMENT PRIMARY KEY,
+	article_id INT,
+	author VARCHAR(255) NULL,
+	body TEXT NOT NULL
+);
