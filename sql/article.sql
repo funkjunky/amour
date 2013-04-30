@@ -32,7 +32,7 @@ CREATE TABLE `article` (
   `body` text NOT NULL,
   `added` datetime NOT NULL,
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`article_id`),
   UNIQUE KEY `title` (`title`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 

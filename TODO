@@ -1,9 +1,9 @@
 TODO:
 
  **ORM System**
-- write the class "Model" and the functions necessary
-	- write a test model with my testblog and ensure everything works.
-		- write the test model as a blank extended array
-		- use our test page to test all the functionality
+-add relationship to the model
+	-do belongs_to first, because it should be easiest
+	-do has_many [it should return an array of models indexed by id]
+	-do has_many->through [through => true simply uses a cross ref table, otherwise its the same as has_many.]
 
 -Work on creating my Model View system that I will use for my own website, remember using pure and keeping things as streamlined as possible. Also admin should be a simple plugin kind of thing for the orm.
