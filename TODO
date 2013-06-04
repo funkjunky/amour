@@ -6,4 +6,12 @@ TODO:
 	-do has_many [it should return an array of models indexed by id]
 	-do has_many->through [through => true simply uses a cross ref table, otherwise its the same as has_many.]
 
+**noSQL Support**
+-support everything so far with noSQL
+	* seperate classes for each database system (ie. SQLAmourDB, CouchAmourDB, etc.)
+	* Each of these will inherit from AmourDB and inherit their own traits.
+		-every function should probably be in a trait.
+	* the model will call whichever one was set in the configs.
+-consider all conviniences mapped to noSQL
+
 -Work on creating my Model View system that I will use for my own website, remember using pure and keeping things as streamlined as possible. Also admin should be a simple plugin kind of thing for the orm.
